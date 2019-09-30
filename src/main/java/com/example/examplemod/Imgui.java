@@ -27,7 +27,7 @@ public class Imgui {
 
     @SubscribeEvent(receiveCanceled=true)
     public void afterRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-        if (YawnsMod.hello.isPressed()) {
+        if (ExampleMod.hello.isPressed()) {
             implGl3.newFrame();
             implGlfw.newFrame();
 
