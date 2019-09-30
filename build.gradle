@@ -76,8 +76,6 @@ minecraft {
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: 'snapshot', version: '20190719-1.14.3'
     
-    srgExtra "PK: imgui com/example/examplemod/imgui"
-    
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -156,5 +154,11 @@ publishing {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
+    }
+}
+
+reobf {
+    jar {
+        extraLine "PK: imgui com/example/examplemod/imgui"
     }
 }
