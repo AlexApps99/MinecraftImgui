@@ -8,7 +8,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_SHIFT;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import com.example.examplemod.Imgui;
 
