@@ -11,7 +11,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
 version = '1.0'
 group = 'com.example.examplemod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -29,8 +28,8 @@ repositories {
 }
 
 configurations {
-    shade
-    implementation.extendsFrom shade
+    embed
+    implementation.extendsFrom(embed)
 }
 
 dependencies {
@@ -41,7 +40,7 @@ dependencies {
 
     // ImGUI
     ["imgui-core", "imgui-gl", "imgui-glfw"].each {
-        shade("com.github.kotlin-graphics.imgui:$it:jdk8-SNAPSHOT") {
+        embed("com.github.kotlin-graphics.imgui:$it:jdk8-SNAPSHOT") {
             exclude group: "org.lwjgl"
         }
     }
@@ -61,11 +60,7 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            exclude 'META-INF', 'META-INF/**'
-        }
-    }
+    from configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
 }
 
 minecraft {
@@ -132,33 +127,5 @@ minecraft {
                 }
             }
         }
-    }
-}
-
-// Example configuration to allow publishing using the maven-publish task
-// we define a custom artifact that is sourced from the reobfJar output task
-// and then declare that to be published
-// Note you'll need to add a repository here
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
-}
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact reobfArtifact
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
-
-reobf {
-    jar {
-        extraLine "PK: imgui com/example/examplemod/imgui"
     }
 }
