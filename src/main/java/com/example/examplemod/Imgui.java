@@ -13,10 +13,10 @@ import uno.glfw.GlfwWindow;
 public class Imgui {
     private static ImGui imgui = ImGui.INSTANCE;
 
-    private static ImplGL3 implGl3;
-    private static ImplGlfw implGlfw;
+    private ImplGL3 implGl3;
+    private ImplGlfw implGlfw;
 
-    static {
+    public Imgui() {
         ImguiKt.MINECRAFT_BEHAVIORS = true;
         GlfwWindow window = GlfwWindow.from(Minecraft.getInstance().mainWindow.getHandle());
         window.makeContextCurrent();
@@ -27,17 +27,19 @@ public class Imgui {
 
     @SubscribeEvent(receiveCanceled=true)
     public void afterRenderGameOverlay(RenderGameOverlayEvent.Post event) {
-        implGl3.newFrame();
-        implGlfw.newFrame();
+        if (YawnsMod.hello.isPressed()) {
+            implGl3.newFrame();
+            implGlfw.newFrame();
 
-        imgui.newFrame();
+            imgui.newFrame();
 
-        //Render things here
+            //Render things here
 
-        imgui.text("Hello Minecraft!");
+            imgui.text("Hello Minecraft!");
 
-        //and stop here
+            //and stop here
 
-        implGl3.renderDrawData(imgui.getDrawData());
+            implGl3.renderDrawData(imgui.getDrawData());
+        }
     }
 }
