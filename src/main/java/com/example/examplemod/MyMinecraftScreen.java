@@ -29,7 +29,6 @@ public class MyMinecraftScreen extends Screen {
     // Java users can use both a MutableProperty0 or a Boolean Array
     private MutableProperty0<Boolean> showAnotherWindow = new MutableProperty0<>(false);
     private boolean[] showDemo = {true};
-    private boolean[] minecraftGuiScaling = {true};
     private int[] counter = {0};
 
     static {
@@ -41,6 +40,7 @@ public class MyMinecraftScreen extends Screen {
         implGl3 = new ImplGL3();
         
         io = imgui.getIo();
+        imgui.getStyle().scaleAllSizes((float) Minecraft.getInstance().mainWindow.getGuiScaleFactor());
     }
 
     public MyMinecraftScreen () {
@@ -73,11 +73,6 @@ public class MyMinecraftScreen extends Screen {
 
         imgui.checkbox("Demo Window", showDemo);                 // Edit bools storing our windows open/close state
         imgui.checkbox("Another Window", showAnotherWindow);
-        imgui.checkbox("Use Minecraft GUI Scaling", minecraftGuiScaling);
-        
-        if (minecraftGuiScaling[0]) {
-            imgui.getStyle().scaleAllSizes((float) Minecraft.getInstance().mainWindow.getGuiScaleFactor()); // Is this supposed to be run once, or every frame?
-        }
 
         if (imgui.button("Button", new Vec2())) // Buttons return true when clicked (NB: most widgets return true when edited/activated)
             counter[0]++;
