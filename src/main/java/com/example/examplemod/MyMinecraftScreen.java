@@ -63,7 +63,7 @@ public class MyMinecraftScreen extends Screen {
         imgui.sameLine(0f, -1f);
         imgui.text("counter = " + counter[0]);
 
-        imgui.text("Application average %.3f ms/frame (%.1f FPS)", 1_000f / Minecraft.getDebugFPS(), Minecraft.getDebugFPS());
+        imgui.text("Application average %.3f ms/frame (%d FPS)", 1_000f / Minecraft.getDebugFPS(), Minecraft.getDebugFPS());
 
         // 2. Show another simple window. In most cases you will use an explicit begin/end pair to name the window.
         if (showAnotherWindow.get()) {
