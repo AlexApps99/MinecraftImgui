@@ -48,13 +48,13 @@ public class MyMinecraftScreen extends Screen {
     
     // Disables exiting through esc key
     @Override
-    public boolean allowCloseWithEscape() {
+    public boolean shouldCloseOnEsc() {
         return false;
     }
     
     // Allows game to run while Imgui is open in singleplayer
     @Override
-    public boolean doesGuiPauseGame() {
+    public boolean isPauseScreen() {
         return false;
     }
 
