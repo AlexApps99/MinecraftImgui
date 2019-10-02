@@ -45,6 +45,18 @@ public class MyMinecraftScreen extends Screen {
     public MyMinecraftScreen () {
         super(new StringTextComponent("Imgui"));
     }
+    
+    // Disables exiting through esc key
+    @Override
+    public boolean allowCloseWithEscape() {
+        return false;
+    }
+    
+    // Allows game to run while Imgui is open in singleplayer
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
 
     @Override
     public void render(int x, int y, float partialTicks) {
@@ -87,13 +99,12 @@ public class MyMinecraftScreen extends Screen {
             imgui.showDemoWindow(showDemo);
         }
         if (imgui.smallButton("Exit")) {
-        	Minecraft.getInstance().displayGuiScreen(null);
+        	this.close();
         }
 
         //and stop here
         
         imgui.render();
         implGl3.renderDrawData(imgui.getDrawData());
-
     }
 }
