@@ -99,7 +99,7 @@ public class MyMinecraftScreen extends Screen {
             imgui.showDemoWindow(showDemo);
         }
         if (imgui.smallButton("Exit")) {
-        	this.close();
+        	Minecraft.getInstance().displayGuiScreen((Screen) null);
         }
 
         //and stop here
