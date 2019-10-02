@@ -4,6 +4,7 @@ import net.minecraft.client.gui.screen.Screen;
 import glm_.vec2.Vec2;
 import glm_.vec4.Vec4;
 import imgui.Cond;
+import imgui.IO;
 import imgui.ImGui;
 import imgui.impl.gl.ImplGL3;
 import imgui.impl.glfw.ImplGlfw;
@@ -20,6 +21,7 @@ public class MyMinecraftScreen extends Screen {
 
     private static ImplGL3 implGl3;
     private static ImplGlfw implGlfw;
+    private IO io;
     
     // Imgui variables
     private float[] f = {0f};
@@ -36,6 +38,8 @@ public class MyMinecraftScreen extends Screen {
         new Context();
         implGlfw = new ImplGlfw(window, false, null);
         implGl3 = new ImplGL3();
+        
+        io = imgui.getIo();
     }
 
     public MyMinecraftScreen () {
