@@ -21,7 +21,7 @@ public class MyMinecraftScreen extends Screen {
 
     private static ImplGL3 implGl3;
     private static ImplGlfw implGlfw;
-    private IO io;
+    private static IO io;
     
     // Imgui variables
     private float[] f = {0f};
