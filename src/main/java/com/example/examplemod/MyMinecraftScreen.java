@@ -76,7 +76,7 @@ public class MyMinecraftScreen extends Screen {
         imgui.checkbox("Use Minecraft GUI Scaling", minecraftGuiScaling);
         
         if (minecraftGuiScaling[0]) {
-            imgui.getStyle().scaleAllSizes(Minecraft.getInstance().mainWindow.getGuiScaleFactor());
+            imgui.getStyle().scaleAllSizes((float) Minecraft.getInstance().mainWindow.getGuiScaleFactor()); // Is this supposed to be run once, or every frame?
         }
 
         if (imgui.button("Button", new Vec2())) // Buttons return true when clicked (NB: most widgets return true when edited/activated)
