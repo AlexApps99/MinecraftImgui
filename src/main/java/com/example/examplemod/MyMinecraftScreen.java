@@ -36,7 +36,7 @@ public class MyMinecraftScreen extends Screen {
         GlfwWindow window = GlfwWindow.from(Minecraft.getInstance().mainWindow.getHandle());
         window.makeContextCurrent();
         new Context();
-        implGlfw = new ImplGlfw(window, false, null);
+        implGlfw = new ImplGlfw(window, true, null); // Was false, needs extensive testing
         implGl3 = new ImplGL3();
         
         io = imgui.getIo();
