@@ -15,15 +15,17 @@ import com.example.examplemod.MyMinecraftScreen;
 @Mod("examplemod")
 public class ExampleMod {
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final MyMinecraftScreen mms = new MyMinecraftScreen();
 
     public ExampleMod() {
     	MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(mms);
     }
     
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event) {
     	if (Minecraft.getInstance().player != null && Minecraft.getInstance().currentScreen == null && event.getKey() == GLFW_KEY_RIGHT_SHIFT && event.getAction() == 1) {
-    		Minecraft.getInstance().displayGuiScreen(new MyMinecraftScreen());
+    		Minecraft.getInstance().displayGuiScreen(mms);
     	}
     }
 }
