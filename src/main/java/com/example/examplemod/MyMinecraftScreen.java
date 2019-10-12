@@ -72,10 +72,10 @@ public class MyMinecraftScreen extends Screen {
             }
 
             // https://www.glfw.org/docs/latest/group__mods.html
-            io.keyShift = (boolean) event.getModifiers() & 1;
-            io.keyCtrl = (boolean) (event.getModifiers() >> 1) & 1;
-            io.keyAlt = (boolean) (event.getModifiers() >> 2) & 1;
-            io.keySuper = (boolean) (event.getModifiers() >> 3) & 1;
+            io.keyShift = (event.getModifiers() & 1) != 0;
+            io.keyCtrl = ((event.getModifiers() >>> 1) & 1) != 0;
+            io.keyAlt = ((event.getModifiers() >>> 2) & 1) != 0;
+            io.keySuper = ((event.getModifiers() >>> 3) & 1) != 0;
         }
     }
     
