@@ -8,7 +8,6 @@ import imgui.IO;
 import imgui.ImGui;
 import imgui.impl.gl.ImplGL3;
 import imgui.impl.glfw.ImplGlfw;
-import imgui.imgui.g;
 import net.minecraftforge.common.MinecraftForge;
 import imgui.ImguiKt;
 import imgui.MutableProperty0;
@@ -27,6 +26,7 @@ public class MyMinecraftScreen extends Screen {
     private static ImplGL3 implGl3;
     private static ImplGlfw implGlfw;
     private static IO io;
+    private static Context ctx;
     
     // Imgui variables
     private float[] f = {0f};
@@ -40,7 +40,7 @@ public class MyMinecraftScreen extends Screen {
         ImguiKt.MINECRAFT_BEHAVIORS = true;
         GlfwWindow window = GlfwWindow.from(Minecraft.getInstance().mainWindow.getHandle());
         window.makeContextCurrent();
-        new Context();
+        ctx = new Context();
         implGlfw = new ImplGlfw(window, false, null);
         implGl3 = new ImplGL3();
         
@@ -81,7 +81,7 @@ public class MyMinecraftScreen extends Screen {
     
     @SubscribeEvent
     public void onKeyboardCharTyped(KeyboardCharTypedEvent.Pre event) {
-        if (Minecraft.getInstance().currentScreen instanceof MyMinecraftScreen && !g.imeInProgress) {
+        if (Minecraft.getInstance().currentScreen instanceof MyMinecraftScreen && !ctx.imeInProgress) {
             io.addInputCharacter(event.getCodePoint());
         }
     }
