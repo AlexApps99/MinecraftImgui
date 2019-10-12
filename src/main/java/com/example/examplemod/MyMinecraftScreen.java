@@ -8,12 +8,17 @@ import imgui.IO;
 import imgui.ImGui;
 import imgui.impl.gl.ImplGL3;
 import imgui.impl.glfw.ImplGlfw;
+import imgui.imgui.g
+import net.minecraftforge.common.MinecraftForge;
 import imgui.ImguiKt;
 import imgui.MutableProperty0;
 import uno.glfw.GlfwWindow;
 import net.minecraft.client.Minecraft;
 import imgui.imgui.Context;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.KeyboardKeyPressedEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.KeyboardCharTypedEvent;
 
 public class MyMinecraftScreen extends Screen {
 
@@ -36,11 +41,11 @@ public class MyMinecraftScreen extends Screen {
         GlfwWindow window = GlfwWindow.from(Minecraft.getInstance().mainWindow.getHandle());
         window.makeContextCurrent();
         new Context();
-        implGlfw = new ImplGlfw(window, true, null); // Was false, needs extensive testing
+        implGlfw = new ImplGlfw(window, false, null);
         implGl3 = new ImplGL3();
         
         io = imgui.getIo();
-        imgui.getStyle().scaleAllSizes((float) Minecraft.getInstance().mainWindow.getGuiScaleFactor());
+        //imgui.getStyle().scaleAllSizes((float) Minecraft.getInstance().mainWindow.getGuiScaleFactor());
     }
 
     public MyMinecraftScreen () {
@@ -57,6 +62,28 @@ public class MyMinecraftScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+    
+    @SubscribeEvent
+    public void onKeyboardKeyPressed(KeyboardKeyPressedEvent.Pre event) {
+        if (Minecraft.getInstance().currentScreen instanceof MyMinecraftScreen) {
+            if (event.getKeyCode() < 512) {
+                io.keysDown[event.getKeyCode()] = true;
+            }
+
+            // https://www.glfw.org/docs/latest/group__mods.html
+            io.keyShift = event.getModifiers() & 1;
+            io.keyCtrl = (event.getModifiers() >> 1) & 1;
+            io.keyAlt = (event.getModifiers() >> 2) & 1;
+            io.keySuper = (event.getModifiers() >> 3) & 1;
+        }
+    }
+    
+    @SubscribeEvent
+    public void onKeyboardCharTyped(KeyboardCharTypedEvent.Pre event) {
+        if (Minecraft.getInstance().currentScreen instanceof MyMinecraftScreen && !g.imeInProgress) {
+            io.addInputCharacter(event.getCodePoint());
+        }
     }
 
     @Override
@@ -100,7 +127,7 @@ public class MyMinecraftScreen extends Screen {
             imgui.showDemoWindow(showDemo);
         }
         if (imgui.smallButton("Exit")) {
-        	Minecraft.getInstance().displayGuiScreen((Screen) null);
+        	super.close();
         }
 
         //and stop here
