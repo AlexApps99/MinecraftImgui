@@ -8,7 +8,7 @@ import imgui.IO;
 import imgui.ImGui;
 import imgui.impl.gl.ImplGL3;
 import imgui.impl.glfw.ImplGlfw;
-import imgui.imgui.g
+import imgui.imgui.g;
 import net.minecraftforge.common.MinecraftForge;
 import imgui.ImguiKt;
 import imgui.MutableProperty0;
